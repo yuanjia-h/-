@@ -1,0 +1,62 @@
+import java.util.Scanner;
+public class guest_price {
+    public static void main(String[] args) {
+        String username;
+        float plan_price=0.00f;
+        Scanner input=new Scanner(System.in);
+        System.out.println("...............................");
+        System.out.println("         价格猜猜猜");
+        System.out.println("                       作者：小涵");
+        System.out.println("                       版本：v1.0");
+        System.out.println("...............................");
+        System.out.println("-->回车进入游戏");
+        input.nextLine();
+        System.out.println("请输入用户名");
+        username=input.nextLine();
+        System.out.println(username+",欢迎进入游戏空间，现在请选择的价格猜猜猜商品的类别");
+        System.out.println("***********************");
+        System.out.println("1------家电(1000-2000)");
+        System.out.println("2------文具(1-100)");
+        System.out.println("***********************");
+        //接收用户输入1或2,防止用户输入其它内容报错，这里不用nextInt，还使用next
+        String user_choice= input.next();
+        //用户的user_choice内容输入后，只有1和2进行响应，其它乱给价格
+        switch(user_choice){
+            case "1":
+                plan_price=Math.round(Math.random()*1000+1000);
+                break;
+            case "2":
+                plan_price=Math.round(Math.random()*99+1);
+                break;
+            default:
+                plan_price=Math.round(Math.random()*99999999);
+        }
+        System.out.println("请输入猜猜猜的价格：");
+        //用户猜数字,输入价格和判断是重复的步骤,while猜对,还有一个变量用户输入价格
+        float user_price=input.nextFloat();
+        //设定一个最终输出不同信息的标志位
+        boolean flag=false;
+        while(!(user_price==plan_price)){
+            //进入到循环中，如果用户输入0或者负数，直接退出循环
+            if(user_price<=0) {
+                flag=true;
+                break;
+            }
+            //进入循环的条件没有等于,else中的意义：除了大于就是小于
+            if(user_price>plan_price){
+                System.out.println("猜大了");
+            }else{
+                System.out.println("猜小了");
+            }
+            //重复此循环，重新输入user_price
+            user_price=input.nextFloat();
+        }
+        //最后输出用户到底是猜出来的还是没有猜出来的，猜出来的输出“你真聪明”，猜不出来“再接再励”。
+        if(flag){
+            System.out.println("再接再励");
+        }else{
+            System.out.println("你真聪明");
+        }
+        System.out.println("对本系统的使用有什么宝贵意见，可以联系作者");
+    }
+}
